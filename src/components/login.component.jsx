@@ -1,3 +1,6 @@
+// Form validateAll() method to check validation functions
+// CheckButton help to verify if the form validation is successful or not
+
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 

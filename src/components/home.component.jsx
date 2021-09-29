@@ -41,9 +41,6 @@ export default class Home extends Component {
                     <h3>{this.state.content}</h3>
                 </header>
             </div>
-        )
+        );
     }
-
-
-
 }

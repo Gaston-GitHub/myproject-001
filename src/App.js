@@ -1,3 +1,10 @@
+// Adding nav bar in App component. Root container for the app
+// Nav bar dynamically changes by login status and current user's roles
+// Home: always, Login & Sign up: if user hasn't signed yet
+// User: there is user value in the app state
+// Board Moderator: roles includes ROLE_MODERATOR 
+// Board Admin: role includes ROLE_ADMIN 
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Router, Switch, Route, Link } from 'react-router-dom';
@@ -17,6 +24,8 @@ import { logout } from './actions/auth';
 import { clearMessage } from './actions/message';
 
 import { history } from './actions/history';
+
+import AuthVerify from './common/auth.verify';
 
 
 class App extends Component {
@@ -122,7 +131,8 @@ class App extends Component {
                 <Route path='/mod' component={BoardModerator} />
                 <Route path='amdin' component={BoardAdmin} />
             </Switch>
-          </div>     
+          </div> 
+          <AuthVerify logOut={this.logOut} />    
         </div>
       </Router>
     );

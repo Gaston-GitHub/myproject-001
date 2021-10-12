@@ -8,22 +8,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Router, Switch, Route, Link } from 'react-router-dom';
+import { Provider} from 'react-redux';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import Login from './components/login.component.jsx';
-import Register from '.components/register.component';
-import Home from '.components/home.component';
-import Profile from './components/profile.component.jsx';
-import BoardUser from './components/board-user.component.jsx';
+import Login from './components/login.component';
+import Register from './components/register.component';
+import Home from './components/home.component';
+import Profile from './components/profile.component';
+import BoardUser from './components/board-user.component';
 import BoardModerator from './components/board-moderator.component';
-import BoardAdmin from './components/board-admin.component.jsx'
+import BoardAdmin from './components/board-admin.component';
 
 import { logout } from './actions/auth';
 import { clearMessage } from './actions/message';
 
-import { history } from './actions/history';
+import store from './store';
+import { history } from './helpers/history';
 
 import AuthVerify from './common/auth.verify';
 
@@ -62,14 +64,15 @@ class App extends Component {
 
   render() {
     const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
-
+    
     return(
+      <Provider store={store}>
       <Router history={history}>
         <div>
           <nav className='navbar navbar-expand navbar-dark bg-dark'>
-            <Link to={'/'} className='navbar-breand'>
+            {/* <Link to={'/'} className='navbar-brand'>
               myproject-001
-            </Link>
+            </Link> */}
             <div className='navbar-nav mr-auto'>
               <li className='nav-item'>
                 <Link to={'/home'} className='nav-link'>
@@ -118,23 +121,23 @@ class App extends Component {
                 </div>
               )}
             </div>
-
           </nav>
 
           <div className='container mt-3'>
             <Switch>
-                <Route exact path={['/', '/home']} component={Home} />
+                <Route exact path='/' component={Home} />
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/register' component={Register} />
                 <Route exact path='/profile' component={Profile} />
-                <Route path='user' component={BoardUser} />
+                <Route path='/user' component={BoardUser} />
                 <Route path='/mod' component={BoardModerator} />
-                <Route path='amdin' component={BoardAdmin} />
+                <Route path='/admin' component={BoardAdmin} />
             </Switch>
           </div> 
           <AuthVerify logOut={this.logOut} />    
         </div>
       </Router>
+      </Provider>
     );
   }
 }

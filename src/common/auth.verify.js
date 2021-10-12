@@ -18,7 +18,7 @@ class AuthVerify extends Component {
     constructor(props) {
         super(props);
 
-        props.listen(() => {
+        props.history.listen(() => {
             const user = JSON.parse(localStorage.getItem('user'));
 
             if(user) {
